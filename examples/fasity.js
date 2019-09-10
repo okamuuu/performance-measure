@@ -1,0 +1,50 @@
+const IsuconMeasure = require('../')
+const m = new IsuconMeasure()
+
+const fastify = require('fastify')({
+  logger: false
+})
+
+fastify.addHook('preHandler', function (request, reply, next) {
+  m.start(request.raw.id)
+  next()
+})
+
+fastify.addHook('onSend', function (request, reply, _, next) {
+  let routeId = reply.context.config.statsId ? reply.context.config.statsId : request.raw.url 
+  m.endAs(request.raw.id, routeId)
+  next()
+})
+
+function sleep(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+
+fastify.get('/__stats__', async (req, reply) => {
+  const style = "font-family: 'Fira Mono', 'Andale Mono', 'Consolas', 'monospace';"
+  reply
+    .header('Content-Type', "Content-type: text/html; charset=utf-8")
+    .send(`<pre style="${style}">${m.print()}</pre>`)
+})
+
+fastify.get('/', (request, reply) => {
+  sleep(100)
+  reply.send({ GET: '/' })
+})
+
+fastify.get('/items', (request, reply) => {
+  sleep(100)
+  reply.send({ GET: 'items/' })
+})
+
+fastify.get('/items/:id', (request, reply) => {
+  sleep(100)
+  const id = request.params.id
+  reply.send({ GET: `/items/${id}` })
+})
+
+fastify.listen(4000, (err, address) => {
+  if (err) throw err
+  console.log(`server listening on ${address}`)
+})
+
