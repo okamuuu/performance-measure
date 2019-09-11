@@ -1,5 +1,7 @@
 # performance-measure
 
+https://travis-ci.org/okamuuu/performance-measure.svg?branch=master
+
 measure specilizing in speed up contests.
 
 ## Install
