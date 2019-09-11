@@ -5,12 +5,16 @@
   "main": "index.js",
   "node": ">=10.16.3",
   "license": "MIT",
+  "scripts": {
+    "test": "tap test.js"
+  },
   "dependencies": {
     "easy-table": "^1.1.1",
     "summary": "^1.0.0"
   },
   "devDependencies": {
     "express": "^4.17.1",
-    "fastify": "^2.8.0"
+    "fastify": "^2.8.0",
+    "tap": "^14.6.2"
   }
 }
