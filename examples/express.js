@@ -1,11 +1,11 @@
-const express = require('express');
+const express = require('express')
 const PerformanceMeasure = require('../')
 
-const app = express();
+const app = express()
 const m = new PerformanceMeasure()
 
-function sleep(ms) {
-  return new Promise(r => setTimeout(r, ms));
+function sleep (ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 // copied from fastify
@@ -29,13 +29,13 @@ app.get('/', async (req, res, next) => {
 
 app.get('/items', async (req, res, next) => {
   await sleep(10)
-  res.send("GET /items")
+  res.send('GET /items')
   next()
 })
 
 app.get('/items/:id', async (req, res, next) => {
   await sleep(10)
-  res.send("GET /items/:id")
+  res.send('GET /items/:id')
   next()
 })
 
@@ -52,4 +52,4 @@ app.use((req, res, next) => {
   next()
 })
 
-app.listen(3000, () => console.log('Listening on port 3000'));
+app.listen(3000, () => console.log('Listening on port 3000'))

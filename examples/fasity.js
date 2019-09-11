@@ -11,19 +11,19 @@ fastify.addHook('preHandler', function (request, reply, next) {
 })
 
 fastify.addHook('onSend', function (request, reply, _, next) {
-  let routeId = reply.context.config.statsId ? reply.context.config.statsId : request.raw.url 
+  const routeId = reply.context.config.statsId ? reply.context.config.statsId : request.raw.url
   m.endAs(request.raw.id, routeId)
   next()
 })
 
-function sleep(ms) {
-  return new Promise(r => setTimeout(r, ms));
+function sleep (ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 fastify.get('/__stats__', async (req, reply) => {
   const style = "font-family: 'Fira Mono', 'Andale Mono', 'Consolas', 'monospace';"
   reply
-    .header('Content-Type', "Content-type: text/html; charset=utf-8")
+    .header('Content-Type', 'Content-type: text/html; charset=utf-8')
     .send(`<pre style="${style}">${m.print()}</pre>`)
 })
 
@@ -47,4 +47,3 @@ fastify.listen(4000, (err, address) => {
   if (err) throw err
   console.log(`server listening on ${address}`)
 })
-

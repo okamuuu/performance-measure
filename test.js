@@ -2,8 +2,8 @@ const { test } = require('tap')
 
 const PerformanceMeasure = require('./')
 
-function sleep(ms = 0) {
-  return new Promise(r => setTimeout(r, ms));
+function sleep (ms = 0) {
+  return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 test('produces some stats', async (t) => {
@@ -11,7 +11,7 @@ test('produces some stats', async (t) => {
   m.start('foo')
   await sleep(10)
   m.end('foo')
-  
+
   m.start('foo')
   await sleep(10)
   m.end('foo')
@@ -21,5 +21,3 @@ test('produces some stats', async (t) => {
   t.ok(stats[0].name === 'foo')
   t.ok(stats[0].size === 2)
 })
-
-

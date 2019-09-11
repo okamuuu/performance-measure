@@ -4,26 +4,25 @@ const { performance, PerformanceObserver } = require('perf_hooks')
 
 // most copied from fastify-routes-stats
 class PerformanceMeasure {
-
-  constructor(args = {}) {
+  constructor (args = {}) {
     this.measures = []
     this.obs = new PerformanceObserver((items) => {
       items.getEntries().forEach(entry => {
         this.measures.push(entry)
       })
     })
-    this.obs.observe({entryTypes: ['measure']})
+    this.obs.observe({ entryTypes: ['measure'] })
     this.disable = args.disable
   }
 
-  start(name) {
+  start (name) {
     if (this.disable) {
       return
     }
     performance.mark(name + '-start')
   }
 
-  end(name) {
+  end (name) {
     if (this.disable) {
       return
     }
@@ -31,7 +30,7 @@ class PerformanceMeasure {
     performance.measure(name, name + '-start', name + '-end')
   }
 
-  endAs(name, as) {
+  endAs (name, as) {
     if (this.disable) {
       return
     }
@@ -39,7 +38,7 @@ class PerformanceMeasure {
     performance.measure(as, name + '-start', name + '-end')
   }
 
-  measurements() {
+  measurements () {
     return this.measures.reduce((acc, e) => {
       const key = e.name
       if (acc[key]) {
@@ -50,8 +49,8 @@ class PerformanceMeasure {
       return acc
     }, {})
   }
-  
-  stats() {
+
+  stats () {
     const m = this.measurements()
     return Object.keys(m).map(k => {
       const s = summary(m[k])
@@ -61,7 +60,7 @@ class PerformanceMeasure {
         sum: s.sum(),
         max: s.max(),
         min: s.min(),
-        mean: s.mean(),
+        mean: s.mean()
         // mode: s.mode(),
         // median: s.median(),
         // sd: s.sd()
@@ -69,9 +68,9 @@ class PerformanceMeasure {
     })
   }
 
-  print(sort=['sum|des']) {
+  print (sort = ['sum|des']) {
     const stats = this.stats()
-    var t = new Table
+    var t = new Table()
     stats.forEach(x => {
       t.cell('name', x.name)
       t.cell('size', x.size, Table.number(0))
@@ -88,8 +87,7 @@ class PerformanceMeasure {
     return t.toString()
   }
 
-  reset() {
-    const m = this.measurements()
+  reset () {
     this.measures = []
   }
 }
