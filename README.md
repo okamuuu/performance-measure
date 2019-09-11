@@ -4,7 +4,9 @@ measure specilizing in speed up contests.
 
 ## Install
 
-To be written
+```
+npm install performance-measure
+```
 
 ## Example
 
