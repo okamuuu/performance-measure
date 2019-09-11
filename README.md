@@ -1,6 +1,6 @@
 # performance-measure
 
-https://travis-ci.org/okamuuu/performance-measure.svg?branch=master
+[![Build Status](https://travis-ci.org/okamuuu/performance-measure.svg?branch=master)](https://travis-ci.org/okamuuu/performance-measure)
 
 measure specilizing in speed up contests.
 
