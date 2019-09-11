@@ -8,6 +8,17 @@
   "scripts": {
     "test": "standard | snazzy && tap test.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/okamuuu/performance-measure.git"
+  },
+  "keywords": [
+    "perf",
+    "perf_hooks",
+    "measure",
+    "stats",
+    "apm"
+  ],
   "dependencies": {
     "easy-table": "^1.1.1",
     "summary": "^1.0.0"
