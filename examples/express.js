@@ -1,8 +1,8 @@
 const express = require('express');
-const IsuconMeasure = require('../')
+const PerformanceMeasure = require('../')
 
 const app = express();
-const m = new IsuconMeasure()
+const m = new PerformanceMeasure()
 
 function sleep(ms) {
   return new Promise(r => setTimeout(r, ms));

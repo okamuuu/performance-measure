@@ -1,7 +1,7 @@
-const IsuconMeasure = require('../')
+const PerformanceMeasure = require('../')
 
 async function main() {
-  const m = new IsuconMeasure()
+  const m = new PerformanceMeasure()
   m.start('A')
   await sleep(100)
   m.end('A')

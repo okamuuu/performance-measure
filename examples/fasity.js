@@ -1,5 +1,5 @@
-const IsuconMeasure = require('../')
-const m = new IsuconMeasure()
+const PerformanceMeasure = require('../')
+const m = new PerformanceMeasure()
 
 const fastify = require('fastify')({
   logger: false
