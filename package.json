@@ -1,6 +1,6 @@
 {
   "name": "performance-measure",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "measure specializiing in speed up contests",
   "main": "index.js",
   "node": ">=10.16.3",
