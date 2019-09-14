@@ -6,7 +6,7 @@ measure specilizing in speed up contests.
 
 ## Install
 
-```
+```sh
 npm install performance-measure
 ```
 
@@ -14,7 +14,7 @@ npm install performance-measure
 
 codes:
 
-```
+```js
 const PerformanceMeasure = require('performance-measure')
 
 async function main() {
@@ -33,7 +33,7 @@ async function main() {
  
   m.start('C')
   await sleep(400)
-  m.end('C')
+  m.endAs('C', 'foobar')
 
   console.log(m.print())
 }
@@ -48,11 +48,11 @@ function sleep(ms = 0) {
 result:
 
 ```
-name  size  sum     max     min     mean  
-----  ----  ------  ------  ------  ------
-C        1  405.09  405.09  405.09  405.09
-A        2  310.80  204.91  105.89  155.40
-B        1  104.28  104.28  104.28  104.28
+name    size  sum     max     min     mean  
+------  ----  ------  ------  ------  ------
+foobar     1  404.43  404.43  404.43  404.43
+A          2  308.94  204.18  104.76  154.47
+B          1  100.44  100.44  100.44  100.44
 ```
 
 SEE ALSO: `examples/*.js`

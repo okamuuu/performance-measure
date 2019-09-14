@@ -16,7 +16,7 @@ async function main () {
 
   m.start('C')
   await sleep(400)
-  m.end('C')
+  m.endAs('C', 'foobar')
 
   console.log(m.print())
 }
