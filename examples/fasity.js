@@ -37,7 +37,7 @@ fastify.get('/items', (request, reply) => {
   reply.send({ GET: 'items/' })
 })
 
-fastify.get('/items/:id', (request, reply) => {
+fastify.get('/items/:id', { config: { statsId: '/items/:id' } }, (request, reply) => {
   sleep(100)
   const id = request.params.id
   reply.send({ GET: `/items/${id}` })
