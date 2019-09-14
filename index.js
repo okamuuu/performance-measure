@@ -28,6 +28,9 @@ class PerformanceMeasure {
     }
     performance.mark(name + '-end')
     performance.measure(name, name + '-start', name + '-end')
+
+    performance.clearMarks(name + '-start')
+    performance.clearMarks(name + '-end')
   }
 
   endAs (name, as) {
