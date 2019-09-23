@@ -5,6 +5,7 @@ const { performance, PerformanceObserver } = require('perf_hooks')
 // most copied from fastify-routes-stats
 class PerformanceMeasure {
   constructor (args = {}) {
+    this.instanceId = Math.floor(performance.now() * 100)
     this.measures = []
     this.obs = new PerformanceObserver((items) => {
       items.getEntries().forEach(entry => {
@@ -19,26 +20,25 @@ class PerformanceMeasure {
     if (this.disable) {
       return
     }
-    performance.mark(name + '-start')
+    performance.mark(`${this.instanceId}:${name}-start`)
   }
 
   end (name) {
-    if (this.disable) {
-      return
-    }
-    performance.mark(name + '-end')
-    performance.measure(name, name + '-start', name + '-end')
-
-    performance.clearMarks(name + '-start')
-    performance.clearMarks(name + '-end')
+    this.endAs(name, name)
   }
 
   endAs (name, as) {
     if (this.disable) {
       return
     }
-    performance.mark(name + '-end')
-    performance.measure(as, name + '-start', name + '-end')
+    performance.mark(`${this.instanceId}:${name}-end`)
+    performance.measure(
+      `${this.instanceId}:${as}`,
+      `${this.instanceId}:${name}-start`,
+      `${this.instanceId}:${name}-end`)
+
+    performance.clearMarks(`${this.instanceId}:${name}-start`)
+    performance.clearMarks(`${this.instanceId}:${name}-end`)
   }
 
   measurements () {
@@ -58,7 +58,7 @@ class PerformanceMeasure {
     return Object.keys(m).map(k => {
       const s = summary(m[k])
       return {
-        name: k,
+        name: k.replace(this.instanceId + ':', ''),
         size: s.size(),
         sum: s.sum(),
         max: s.max(),
