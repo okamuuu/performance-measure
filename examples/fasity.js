@@ -5,6 +5,18 @@ const fastify = require('fastify')({
   logger: false
 })
 
+fastify.setErrorHandler(function (error, request, reply) {
+  request.log.warn(error)
+  var statusCode = error.statusCode >= 400 ? error.statusCode : 500
+  reply
+    .code(statusCode)
+    .type('text/plain')
+    .send(statusCode >= 500
+      ? 'Internal server error'
+      : error.message
+    )
+})
+
 fastify.addHook('preHandler', function (request, reply, next) {
   m.start(request.raw.id)
   next()
@@ -25,6 +37,11 @@ fastify.get('/__stats__', async (req, reply) => {
   reply
     .header('Content-Type', 'Content-type: text/html; charset=utf-8')
     .send(`<pre style="${style}">${m.print()}</pre>`)
+})
+
+// need to specify async
+fastify.get('/error', async (request, reply) => {
+  throw new Error('foobar')
 })
 
 fastify.get('/', (request, reply) => {
